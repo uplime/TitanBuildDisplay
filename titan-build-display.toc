@@ -1,0 +1,9 @@
+## Interface: 110002
+## Title: Titan Panel Build Display
+## Version: 1.0.0
+## Notes: Display the current spec, build, and hero talents.
+## Author: uplime <uplime@spookyinternet.com>
+## Dependencies: Titan
+## DefaultState: disabled
+
+display.lua
