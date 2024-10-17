@@ -8,7 +8,7 @@ local function GetButtonText()
   -- loadout
   -- TitanGetVar(TITAN_PLUGIN, "ShowColoredText")
 
-  return "here is a label", "here is some rich text" -- FIXME
+  return "Build: ", "BUILD INFORMATION HERE" -- FIXME
 end
 
 local function CreatePlugin()
@@ -23,16 +23,16 @@ local function CreatePlugin()
     id = TITAN_PLUGIN,
     category = "Information",
     version = VERSION,
-    menuText = "HERE IS SOME MENU TEXT", -- FIXME
+    menuText = "Build Information",
 --    menuTextFunction = CreateMenu,
     buttonTextFunction = GetButtonText,
-    tooltipTitle = "HERE IS A TOOLTIP TITLE", -- FIXME
+    tooltipTitle = "Build Information",
 --    tooltipTextFunction = GetTooltipText,
     notes = "Display the current spec, build, and hero talents.",
     controlVariables = {
       ShowIcon = false,
       ShowLabelText = true,
-      ShowColoredText = true,
+--      ShowColoredText = true,
       DisplayOnRightSide = false,
     },
     savedVariables = {
@@ -40,16 +40,13 @@ local function CreatePlugin()
   }
 
   window:SetFrameStrata("FULLSCREEN")
-  -- window:RegisterEvent("PLAYER_LOGIN") needed?
 
   window:SetScript("OnShow", function(self)
-    self:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
-    TitanPanelButton_UpdateButton(TITAN_PLUGIN)
-    TitanPanelButton_OnShow(self)
+    self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
   end)
 
   window:SetScript("OnHide", function(self)
-    self:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+    self:UnregisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
   end)
 
   window:SetScript("OnEvent", function(self, event, ...)
