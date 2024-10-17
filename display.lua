@@ -3,10 +3,16 @@ local TITAN_PLUGIN = "BuildDisplay"
 local TITAN_BUTTON = "TitanPanel" .. TITAN_PLUGIN .. "Button"
 
 local function GetButtonText()
-  -- spec
   -- hero talent
   -- loadout
-  -- TitanGetVar(TITAN_PLUGIN, "ShowColoredText")
+
+  local build_info = { }
+  local spec_id = GetSpecialization()
+
+  if spec_id then
+    local spec_name = GetSpecializationInfo(spec_id)
+    table.insert(build_info, spec_name)
+  end
 
   return "Build: ", "BUILD INFORMATION HERE" -- FIXME
 end
@@ -50,11 +56,13 @@ local function CreatePlugin()
   end)
 
   window:SetScript("OnEvent", function(self, event, ...)
-    local args = ...
+    local args = { ... }
 
-    if args[1] == "player" and args[3] == 384255 then
-      TitanPanelButton_UpdateButton(TITAN_PLUGIN)
+    for i = 1, #args do
+      print(args[i])
     end
+
+    -- TitanPanelButton_UpdateButton(TITAN_PLUGIN)
   end)
 
   window:SetScript("OnClick", function(self, button)
