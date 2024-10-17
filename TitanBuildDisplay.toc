@@ -1,5 +1,7 @@
 ## Interface: 110002
-## Title: Titan Panel Build Display
+## Author: uplime
+## Title: Titan Panel [|cffeda55fBuild Display|r]
+## IconTexture: Interface\Icons\inv_hammer_04
 ## Version: 1.0.0
 ## Notes: Display the current spec, build, and hero talents.
 ## Author: uplime <uplime@spookyinternet.com>
