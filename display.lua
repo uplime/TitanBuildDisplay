@@ -22,7 +22,7 @@ end
 
 -- Handle no loadout
 local function GetLoadoutId()
-  if PlayerSpellsFrame.TalentsFrame.LoadoutDropDown.GetSelectionID then
+  if PlayerSpellsFrame and PlayerSpellsFrame.TalentsFrame.LoadoutDropDown.GetSelectionID then
     return PlayerSpellsFrame.TalentsFrame.LoadoutDropDown:GetSelectionID()
   end
 
