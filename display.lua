@@ -14,6 +14,12 @@ local function GetButtonText()
     table.insert(build_info, spec_name)
   end
 
+  local config_id = C_ClassTalents.GetActiveConfigID()
+  local hero_tree_id = C_ClassTalents.GetActiveHeroTalentSpec()
+  local hero_tree = C_Traits.GetSubTreeInfo(config_id, hero_tree_id)
+
+  DevTools_Dump(hero_tree)
+
   return "Build: ", "BUILD INFORMATION HERE" -- FIXME
 end
 
