@@ -2,25 +2,51 @@ local VERSION = C_AddOns.GetAddOnMetadata(..., "Version")
 local TITAN_PLUGIN = "BuildDisplay"
 local TITAN_BUTTON = "TitanPanel" .. TITAN_PLUGIN .. "Button"
 
-local function GetButtonText()
-  -- hero talent
-  -- loadout
+local function GetSpecName()
+  local id = GetSpecialization()
 
-  local build_info = { }
-  local spec_id = GetSpecialization()
-
-  if spec_id then
-    local spec_name = GetSpecializationInfo(spec_id)
-    table.insert(build_info, spec_name)
+  if not id then
+    return "No Specialization"
   end
 
+  local name = GetSpecializationInfo(id)
+end
+
+-- Handle no hero tree
+local function GetHeroTreeName()
   local config_id = C_ClassTalents.GetActiveConfigID()
   local hero_tree_id = C_ClassTalents.GetActiveHeroTalentSpec()
   local hero_tree = C_Traits.GetSubTreeInfo(config_id, hero_tree_id)
+  return hero_tree.name
+end
 
-  DevTools_Dump(hero_tree)
+-- Handle no loadout
+local function GetLoadoutId()
+  if PlayerSpellsFrame.TalentsFrame.LoadoutDropDown.GetSelectionID then
+    return PlayerSpellsFrame.TalentsFrame.LoadoutDropDown:GetSelectionID()
+  end
 
-  return "Build: ", "BUILD INFORMATION HERE" -- FIXME
+  local spec_id = PlayerUtil.GetCurrentSpecID()
+
+  if spec_id then
+    return C_ClassTalents.GetLastSelectedSavedConfigID(spec_id)
+  end
+
+  return C_ClassTalents.GetActiveConfigID()
+end
+
+local function GetLoadoutName()
+  local loadout = C_Traits.GetConfigInfo(GetLoadoutId())
+  return loadout.name
+end
+
+local function GetButtonText()
+  local spec = GetSpecName()
+  local hero_tree = GetHeroTreeName()
+  local loadout = GetLoadoutName()
+
+
+  return "Build: ", spec .. "|" .. hero_tree .. "|" .. loadout
 end
 
 local function CreatePlugin()
