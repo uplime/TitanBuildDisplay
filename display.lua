@@ -48,21 +48,17 @@ local function CreatePlugin()
   window:SetFrameStrata("FULLSCREEN")
 
   window:SetScript("OnShow", function(self)
-    self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
+    self:RegisterEvent("TRAIT_CONFIG_UPDATED")
   end)
 
   window:SetScript("OnHide", function(self)
-    self:UnregisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
+    self:UnregisterEvent("TRAIT_CONFIG_UPDATED")
   end)
 
   window:SetScript("OnEvent", function(self, event, ...)
-    local args = { ... }
-
-    for i = 1, #args do
-      print(args[i])
+    if event == "TRAIT_CONFIG_UPDATED" then
+      TitanPanelButton_UpdateButton(TITAN_PLUGIN)
     end
-
-    -- TitanPanelButton_UpdateButton(TITAN_PLUGIN)
   end)
 
   window:SetScript("OnClick", function(self, button)
